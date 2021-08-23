@@ -1,3 +1,7 @@
+from flask import Flask, render_template, request, redirect, session
+from mysql.connector import connect
+import random
+import string
 @app.route('/')
 def hello_world():
     # connection = connect(host="localhost", database="student", user="root", password="admin123"')
@@ -9,7 +13,7 @@ def urlshortner():
     # letter='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     url = request.args.get('link')
     customurl = request.args.get('link1')
-    connection = connect(host="localhost", database="student", user="root", password="admin123"")
+    connection = connect(host="localhost", database="student", user="root", password="admin123")
     cur = connection.cursor()
     # encryptedurl = ''
     if customurl == '':
@@ -66,7 +70,7 @@ def createEncryptedurl():
 
 @app.route('/<url>')
 def dynamicUrl(url):
-    connection = connect(host='localhost', database='kartik', user='root', password='kartik14')
+    connection = connect(host="localhost", database="student", user="root", password="admin123")
     query1 = "select * from urlinfo where encryptedUrl='{}'".format(url)
     cur = connection.cursor()
     cur.execute(query1)
@@ -93,7 +97,7 @@ def register():
     pwd = request.args.get('pwd')
     if email == None or username == None or pwd == None:
         return render_template('SignUp.html', error1="Please fill correct all details")
-    connection = connect(host="localhost", database="kartik", user="root", password="kartik14")
+    connection = connect(host="localhost", database="student", user="root", password="admin123")
     cur = connection.cursor()
     query1 = "select * from userDetails where emailId='{}'".format(email)
     cur.execute(query1)
@@ -122,7 +126,7 @@ def Login():
 def checkLogIn():
     email = request.args.get('email')
     password = request.args.get('pwd')
-    connection = connect(host="localhost", database="kartik", user="root", password="kartik14")
+    connection = connect(host="localhost", database="student", user="root", password="admin123")
     cur = connection.cursor()
     query1 = "select * from userDetails where emailId='{}'".format(email)
     cur.execute(query1)
@@ -148,7 +152,7 @@ def home():
         # email = session['email']
         id = session['userid']
         print(id)
-        connection = connect(host="localhost", database="kartik", user="root", password="kartik14")
+        connection = connect(host="localhost", database="student", user="root", password="admin123")
         cur = connection.cursor()
         query1 = "select * from urlinfo where created_by={}".format(id)
         cur.execute(query1)
