@@ -68,19 +68,29 @@ input[type=text]:focus
 	border-color: #7591D7;
 	outline: none; 
 }
-input[type=button]
-{
-	margin-left: 10px;
-	width: 100%;
-	height: 60px;
-	border-radius: 10px;
-	background-color:#1B3987;
-	color: white;
-	font-family: arial;
-	font-size: 20px;
+
+input[type=submit]{
+    color: blue;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
 }
-input[type=button]:hover
-{
-	background-color: blue;
-	outline: none;
+
+button{
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 15px;
+    margin: 10px 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
 }
