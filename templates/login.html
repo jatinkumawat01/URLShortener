@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Login IN FORM</title>
+        <link rel="icon" href="/static/images/favicon.png" type="image/png">
+        <link rel="stylesheet" type="text/css" href="/static/css1/style1.css">
+        <body>
+            <div class="Sign-In-Form">
+                <img src="/static/user-Icon.png">
+                <h1>LOG IN FORM</h1>
+                <form action="checkLoginIn">
+                   <input type="email" class="input-box" placeholder="Your Email" name="email" pattern="^([a-z\d\._-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$" required><br><br>
+                   <input type="password" class="input-box" placeholder="Your password" name="pwd" required><br><br>
+                    <p><span></span></p>
+                    <button type="submit" class="login-btn">Login IN</button>
+                    <span style="float: right"> <a href="/askmail">Forgot password?</a></span>
+                    <br><br><br>
+                    <p>Don't have an account ?<a href="/SignUp">SIGN UP</a></p>
+                   <hr>
+                </form>
+                {{error}}
+            </div>
+        </body>
+</html>
