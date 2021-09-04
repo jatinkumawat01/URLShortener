@@ -225,9 +225,13 @@ def askmail():
 @app.route('/forgetpassword')
 def forgetpassword():
     email = request.args.get('email')
+    email_check = re.fullmatch("^([a-z\d\._-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$", email)
+    if email_check is None:
+        return render_template('askmail.html',
+                               error="Please enter valid mail id or it should be in lowercase letters instead of uppercase")
     pswd_query = db.session.query(userDetails.c.password).filter_by(emailId=email).one_or_none()
     if pswd_query is None:
-        return render_template('askemail.html', error="email is not correct")
+        return render_template('askmail.html', error="email is not correct")
     randomnumber = ''
     letter = string.digits
     for i in range(6):
@@ -249,6 +253,9 @@ def updatepassword():
     email = request.args.get('email')
     otp = request.args.get("otp")
     password = request.args.get("new-psw")
+    psw_check = re.fullmatch("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", password)
+    if psw_check is None:
+        return render_template("updatepassword.html", error="Password should be of required format")
     mail_query = db.session.query(userDetails.c.otp).filter_by(emailId=email).one_or_none()
     pswd_query = db.session.query(userDetails.c.password).filter_by(emailId=email).one_or_none()
     if mail_query[0] == otp:
