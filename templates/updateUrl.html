@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update URLs</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.min.css">
+    <link rel="icon" href="/static/images/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../static/Bootstrap/bootstrap.min.css">
+	<!-- manual CSS -->
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script>$(document).ready( function () {
+    $('#example').DataTable();
+} );</script>
+    <div class="container-fluid ">
+		<div class="container" style="padding: 0px;">
+			<nav class="navbar black navbar-expand-md navbar-light sticky-top " style="border-bottom: 1px solid lightgray;background-color: white;padding-top:15px;">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <div class="icon-img">
+                        <img src="../static/images/sc2.jpeg" width="250%;">
+                    </div>
+                  </a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="collapsibleNavbar" style="position: absolute; right: 25px;">
+                    <ul class="navbar-nav" >
+                      <li class="nav-item menu-opt ">
+                        <a class="nav-link" style="color: black" href="/login">Profile</a>
+                      </li>
+                      <li class="nav-item menu-opt ">
+                        <a class="nav-link" style="color: black" href="/logout">Logout</a>
+                      </li>
+
+                    </ul>
+                 </div>
+             </div>
+        </nav>
+        <!-----------------------Url Box--------------------------------------->
+        <div class="container-fuild output-outterlayer">
+                <div class="container" >
+                     <form action="/urlshortner">
+                        <div class="row" style="padding:10px 0px;" >
+                            <div class="col-md-12">
+                                    <input type="text" name="link" placeholder="Shorten your link" required>
+                            </div>
+                            <div class="col-md-8 " style="margin-top:10px">
+                                <label style="color:#0000ff;">
+                                    Optional short link ending. Custom ending goes here:
+                                    <label class="customurl-box">
+                                        srt.ct/
+                                        <input type="text" name="link1" placeholder="Custom url" minlength="4" maxlength="6">
+                                        <input type="submit" class="button" style="background-color: #0445f8; color: white" value="Shorten">
+                                    </label>
+                                </label>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+           <ul class=flashes>
+           {% for message in messages %}
+               <li>{{ message }}</li>
+             {% endfor %}
+           </ul>
+             {% endif %}
+            {% endwith %}
+
+        <!-----------------------Table Data--------------------------------------->
+
+            <table id="example" class="display">
+                <thead>
+                  <tr>
+                      <th>id</th>
+                      <th>Original URL</th>
+                    <th> Short URL</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% set count = namespace(value=1) %}
+                  {% for item in data %}
+                    <tr>
+                        <td>{{ count.value }}</td>
+                        {% set count.value = count.value + 1 %}
+                        <td><a href="{{ item.0 }}" target="_blank" >{{ item.1 }} </a></td>
+                        <td><a href="{{ item.1 }}">srt.ct/{{ item.2 }}</a></td>
+                        <td>
+                            <form action="editUrl" method="post">
+                            <input type="hidden" value="{{ item.0 }}" name="id">
+                                <input type="hidden" value="{{ item.1 }}" name="orignalurl">
+                                <input type="hidden" value="{{ item.2 }}" name="encrypted">
+                            <button type="submit" class="button" style="background-color: #0445f8">Edit</button>
+                            </form>
+                        </td>
+
+                        <td>
+                            <form action="deleteUrl" method="post">
+                                <input type="hidden" value="{{ item.0 }}" name="id">
+                               <button type="submit" class="button" style="background-color: #0445f8">Delete </button>
+
+                        </form>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>SIGN UP FORM</title>
+        <link rel="icon" href="/static/images/favicon.png" type="image/png">
+        <link rel="stylesheet" type="text/css" href="/static/css1/style.css">
+        <body>
+            <div class="Sign-Up-Form">
+                <img src="/static/user-Icon.png">
+                <h1>SIGN UP FORM</h1>
+                <form action="register" onsubmit="return test()">
+                    <input type="text" class="input-box" placeholder="Your Name" name="uname" pattern="[a-zA-Z_\s]{5,20}" title="Name should be between 5 to 20 letters without any digits and special symbol except (_)" required>
+                   <input type="email" class="input-box" placeholder="Your Email" name="email" pattern="^([a-z\d\._-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$" title="Please enter valid mail id or it should be in lowercase letters instead of uppercase" required>
+                    {{valid}}
+                   <input type="password" class="input-box" placeholder="Your password" name="pwd" id="pwd" required>
+                    <span style="float: left"><input type="checkbox" onclick="myFunction()" id="sp"></span>
+                    <label for="sp" style="float: left" > Show Password</label>
+                    <input type="password" class="input-box" placeholder="Confirm password"  id="cpwd" required>
+                    <button type="submit" class="signup-btn">SIGN UP</button>
+                    <br><br>
+                   <p class="or">OR</p>
+                  <button type="button" class="twitter-btn">LOGIN WITH TWITTER</button>
+                    <p><span><input type="checkbox" required></span>I Agree to the terms of services.</p>
+                  <p>Do you have an account ? <a href="/Login">SIGN IN</a></p>
+                    {{error}}
+                    {{error1}}
+                    </form>
+            </div>
+        </body>
+    <script>
+        function test(){
+                  var pwd=document.getElementById("pwd").value
+                  var cpwd=document.getElementById("cpwd").value
+                  if(pwd==cpwd)
+                  {
+                  return true;
+                  }
+                  else
+                  {
+                  alert("password and confirm password is not match")
+                  return false;
+                  }
+        }
+        function myFunction()
+        {
+          var x = document.getElementById("pwd");
+          if (x.type === "password")
+          {
+            x.type = "text";
+          }
+          else
+          {
+            x.type = "password";
+          }
+         }
+     </script>
+</html>
