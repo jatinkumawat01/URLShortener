@@ -241,8 +241,8 @@ def forgetpassword():
                   recipients=[email], body=body)
     msg.cc = ['kartik12@gmail.com']
     mail.send(msg)
-    update_query = urlinfo.update().values(otp=randomnumber).where(
-        urlinfo.c.emailId == email)
+    update_query = userDetails.update().values(otp=randomnumber).where(
+        userDetails.c.emailId == email)
     db.session.execute(update_query)
     db.session.commit()
     return render_template('updatepassword.html', email=email)
@@ -260,8 +260,8 @@ def updatepassword():
     pswd_query = db.session.query(userDetails.c.password).filter_by(emailId=email).one_or_none()
     if mail_query[0] == otp:
         if password != pswd_query[0]:
-            update_query = urlinfo.update().values(password=password).where(
-                urlinfo.c.emailId == email)
+            update_query = userDetails.update().values(password=password).where(
+                userDetails.c.emailId == email)
             db.session.execute(update_query)
             db.session.commit()
             return render_template("login.html")
